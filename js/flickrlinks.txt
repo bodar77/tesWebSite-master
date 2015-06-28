@@ -1,0 +1,6 @@
+this.appid = '9b217b1f476896d402cabd129e91974a';
+			this.userid = '67942935@N04';
+
+https://api.flickr.com/services/rest/?method=flickr.collections.getTree&api_key=9b217b1f476896d402cabd129e91974a&user_id=67942935@N04&format=json&nojsoncallback=1
+
+https://api.flickr.com/services/rest/?&method=flickr.photosets.getPhotos&api_key=9b217b1f476896d402cabd129e91974a&photoset_id=72157646674241526&format=json&jsoncallback=?

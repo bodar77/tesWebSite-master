@@ -1,7 +1,7 @@
 var cb = cb || {};
 
 // Image viewer allows a thumnail image to be clicked and become full size. Then the images can be scrolled at full size or closed.
-cb.imageViewer = function(){
+cb.ImageViewer = function(){
 	var _this = this;
 	// Add properties for page elements
 	this.view = document.getElementById('slider');
@@ -26,7 +26,7 @@ cb.imageViewer = function(){
 	
 };
 
-cb.imageViewer.prototype = {
+cb.ImageViewer.prototype = {
 	init: function() {	
 		
 	},

@@ -114,6 +114,9 @@ body {
 	position: absolute;
 	top: 0;
 	right: 0;
+	background: url(../img/pattern.png) no-repeat;
+	width: 300px;
+  	height: 223%;
 }
 
 section {

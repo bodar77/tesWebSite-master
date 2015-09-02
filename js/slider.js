@@ -7,7 +7,7 @@
 				this.max = parseInt(getComputedStyle(this.view).width, 10) - innerWidth;
 				this.offset = this.min = 0;
 				this.pressed = false;
-				this.timeConstant = 325; // ms	
+				this.timeConstant = 325; // ms.
 				this.velocity;
 				this.amplitude;
 				this.ticker;

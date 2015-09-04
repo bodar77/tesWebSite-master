@@ -115,7 +115,8 @@ cb.ImageViewer.prototype = {
 	},
 	
 	handleImageClicked: function(e) {
-		var photoId;
+		var photoId,
+			body = $('body');
 		
 		// Add overlay
 		this.addOverlay
@@ -124,8 +125,15 @@ cb.ImageViewer.prototype = {
 		photoId = e.target.id;
 		console.log(photoId);
 		// request image from flickr api
-		
+		var photo = cb.menu.menuItemLookup[photoId];
+		var picture = '<div class="image-viewer" >'; 
+			picture += '<picture>';
+			picture += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_z.jpg" media="(min-width: 620px)">';
+			picture += '<img id="' + photo.id  + '" srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_n.jpg" alt="">';
+			picture += '</picture>';
+			picture += '</div>';
 		// add image to dom.
+		body.append(picture);
 	}
 	
 	

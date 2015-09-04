@@ -27,10 +27,12 @@ cb.ImgManager.prototype = {
 				div, 
 				mainImage = document.getElementById('main-image'),
 				picture;
-				
+			
 			for (i; i < len; i++)
 			{
 				photo = photos[i];
+				cb.menu.menuItemLookup[photo.id] = photo;
+				cb.menu.menuItemLookup[id].photos[photo.id] = photo;
 				div = document.createElement('div');
 				div.className = 'item';
 				if (i === 0) {
@@ -50,6 +52,7 @@ cb.ImgManager.prototype = {
 				frag.appendChild(div);
 				//containers.eq(i).css('background', 'url(https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg)');
 			}
+			console.log(cb.menu.menuItemLookup);
 			mainImage.innerHTML = picture;
 			slider.appendChild(frag);
 			var s = new cb.Slider();

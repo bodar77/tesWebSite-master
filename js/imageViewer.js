@@ -12,7 +12,7 @@ cb.ImageViewer = function(){
 	this.clickStartTime;
 	this.clickEndTime;
 	
-	this.documentCache = $('document');
+	this.documentCache = $('body');
 	
 	// Need full screen measurements
 	this.screen = { width: 0, height:0, mousex: 0, mousey: 0, distancex: 0, distancey: 0 };
@@ -32,11 +32,9 @@ cb.ImageViewer.prototype = {
 	},
 	
 	getMetrix: function() {
-		var doc = this.documentCache,
-			screen = this.screen;
-			
-		screen.width = doc.width();
-		screen.height = doc.height();
+		var doc = this.documentCache;
+		this.screen.width = doc.width();
+		this.screen.height = $(window).height();
 	},
 	
 	addHandlers: function() {
@@ -116,7 +114,8 @@ cb.ImageViewer.prototype = {
 	
 	handleImageClicked: function(e) {
 		var photoId,
-			body = $('body');
+			body = $('body'),
+			imageHeight;
 		
 		// Add overlay
 		this.addOverlay
@@ -124,16 +123,33 @@ cb.ImageViewer.prototype = {
 		// get id of image clicked.
 		photoId = e.target.id;
 		console.log(photoId);
-		// request image from flickr api
+		
+		var image = $('.image-viewer');
+		
+		if(image.length > 0) {
+			image.remove();
+		}
+
 		var photo = cb.menu.menuItemLookup[photoId];
 		var picture = '<div class="image-viewer" >'; 
+			picture += '<div class="image-close"><button class="button-close"></button></div>';
+			picture += '<div class="image-left"><button class="button-left"></button></div>';
+			picture += '<div class="image-right"><button class="button-right"></button></div>';
 			picture += '<picture>';
-			picture += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_z.jpg" media="(min-width: 620px)">';
-			picture += '<img id="' + photo.id  + '" srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_n.jpg" alt="">';
+			picture += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg" media="(min-width: 620px)">';
+			picture += '<img id="' + photo.id  + '" srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg" alt="">';
 			picture += '</picture>';
 			picture += '</div>';
 		// add image to dom.
 		body.append(picture);
+		
+		image = $('.image-viewer img');
+		
+		this.getMetrix();
+		imageHeight = this.screen.height - $(this.view).height();
+		
+		image.height(imageHeight);
+		
 	}
 	
 	

@@ -193,6 +193,53 @@ aside {
 		position: absolute;
 		clip: rect(0, 0, 0, 0);
 	}
+	
+.image-close {
+	position: absolute;
+	top: 20px;
+	right: 0;
+}
+
+.image-left {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.image-right {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.button-close {
+	width: 52px;
+	height: 52px;
+	background: url('../img/round_delete.png') no-repeat;
+	border: none;
+}
+
+.button-left {
+	width: 128px;
+	height: 128px;
+	background: url('../img/arrow_left.png') no-repeat;
+	border: none;
+}
+
+.button-right {
+	width: 128px;
+	height: 128px;
+	background: url('../img/arrow_right.png') no-repeat;	
+	border: none;
+}
+
+.image-viewer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	background: rgba(0,0,0,0.9);
+}
 
 @media screen and (max-width: 620px)
 {
@@ -282,3 +329,5 @@ aside {
 	}
 	
 }
+Status API Training Shop Blog About Pricing
+© 2015 GitHub, Inc. Terms Privacy Security Contact Help

@@ -31,8 +31,9 @@ cb.ImgManager.prototype = {
 			for (i; i < len; i++)
 			{
 				photo = photos[i];
-				cb.menu.menuItemLookup[photo.id] = photo;
-				cb.menu.menuItemLookup[id].photos[photo.id] = photo;
+				cb.flickr.menuItemLookup[photo.id] = photo;
+				cb.flickr.menuItemLookup[id].photos[photo.id] = photo;
+				
 				div = document.createElement('div');
 				div.className = 'item';
 				if (i === 0) {

@@ -66,6 +66,28 @@ cb.ImageViewer.prototype = {
 	
 	},
 	
+	addImageView: function(photoId) {
+		
+		var image = $('.image-viewer');
+		
+		if(image.length > 0) {
+			image.remove();
+		}
+		
+		var photo = cb.flickr.menuItemLookup[photoId];
+		var body = $('body');
+		var picture = '<div class="image-viewer" >'; 
+			picture += '<div class="image-close"><button class="button-close"></button></div>';
+			picture += '<div class="image-left"><button class="button-left"></button></div>';
+			picture += '<div class="image-right"><button class="button-right"></button></div>';
+			picture += '<picture>';
+			picture += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg" media="(min-width: 620px)">';
+			picture += '<img id="' + photo.id  + '" srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg" alt="">';
+			picture += '</picture>';
+			picture += '</div>';
+		body.append(picture);
+	},
+	
 	handleTouchStart: function(e) {
 		//get mouse clicked time
 		this.clickStartTime = Date.now();
@@ -104,44 +126,43 @@ cb.ImageViewer.prototype = {
 		this.handleImageClicked(e);
 	},
 	
-	handleImageNavigation: function(e) {
-	
+	handleImageNavigation: function(id) {
+		//Resolve issue  with navigating through images
+		var left, right, photos, _this = this;
+		left = $('.button-left');
+		right = $('.button-right');
+		if (left.length > 0) {
+			photos = cb.flickr.menuItemLookup[id];
+			var keys = Object.keys(photos);
+			var loc = keys.indexOf(photos);
+			left.on("click", function(e) {
+				_this.addImageView(photos[loc-1]);
+			});
+			right.on("click", function(e) {
+				_this.addImageView(photos[loc+1]);
+			});
+		}
 	},
 	
-	handleClose: function(e) {
-	
+	handleClose: function() {
+		var closeButton = $('.image-close');
+		if (closeButton.length > 0) {
+			closeButton.on("click", function(e) {
+				$('.image-viewer').remove();
+			});
+		}
 	},
 	
 	handleImageClicked: function(e) {
 		var photoId,
-			body = $('body'),
-			imageHeight;
-		
-		// Add overlay
-		this.addOverlay
+			imageHeight,
+			image;
 		
 		// get id of image clicked.
 		photoId = e.target.id;
 		console.log(photoId);
-		
-		var image = $('.image-viewer');
-		
-		if(image.length > 0) {
-			image.remove();
-		}
 
-		var photo = cb.menu.menuItemLookup[photoId];
-		var picture = '<div class="image-viewer" >'; 
-			picture += '<div class="image-close"><button class="button-close"></button></div>';
-			picture += '<div class="image-left"><button class="button-left"></button></div>';
-			picture += '<div class="image-right"><button class="button-right"></button></div>';
-			picture += '<picture>';
-			picture += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg" media="(min-width: 620px)">';
-			picture += '<img id="' + photo.id  + '" srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg" alt="">';
-			picture += '</picture>';
-			picture += '</div>';
-		// add image to dom.
-		body.append(picture);
+		this.addImageView(photoId);
 		
 		image = $('.image-viewer img');
 		
@@ -149,6 +170,9 @@ cb.ImageViewer.prototype = {
 		imageHeight = this.screen.height - $(this.view).height();
 		
 		image.height(imageHeight);
+		
+		this.handleClose();
+		this.handleImageNavigation(photoId);
 		
 	}
 	

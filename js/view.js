@@ -19,8 +19,8 @@ cb.View.prototype = {
 	loadImages:function() {
 		var _this = this;
 		$(document).on('menuAvailiable', function(e) {
-			cb.imgmanager.loadCategoryImages(e.menuData.collections.collection[0].set[0].id, function() {
-				_this.updateTitleDescription(e.menuData.collections.collection[0].title, e.menuData.collections.collection[0].description)
+			cb.imgmanager.loadCategoryImages(e.menuData.id, function() {
+				_this.updateTitleDescription(e.menuData.title, e.menuData.description)
 			});
 		});
 	},

@@ -7,6 +7,7 @@ cb.Flickr = function(){
 	this.albumnid;
 	this.tree;
 	this.photoCollection = [];
+	this.menuItemLookup = {};
 	//properties
 	//an array of arrays. each requested photoset is stored as an array by key in the photos array.
 	this.photos;
@@ -45,9 +46,35 @@ cb.Flickr.prototype = {
 		function(data){
 			_this.tree = data;
 			console.log(_this.tree);
-			//if the image has a location, build an html snippet containing the data
+
+			//Manipulate the data, loop through it building a new Flikr object and id array.
+			//Create a document fragment to insert into the dom
+			var collections, i = 0, len, event;
+			collections = data.collections.collection;
+			//console.log(collections);
+			len = collections.length
+
+			for (i; i < len; i++) {
+				_this.menuItemLookup[collections[i].id] = collections[i];
+				_this.menuItemLookup[collections[i].id].photos = {};
+				
+				var j = 0, jlen, sets;
+				sets = collections[i].set;
+				jlen = sets.length;
+				console.log('- ' + collections[i].title);
+				for (j; j < jlen; j++) {
+					_this.menuItemLookup[collections[i].id].photos[sets[j].id] = sets[j];
+					_this.menuItemLookup[collections[i].id].photos[sets[j].id].photos = {};
+					_this.menuItemLookup[sets[j].id] = sets[j];
+					_this.photoCollection.push(sets[j].id);
+					console.log('--' + sets[j].title);
+				}
+			}
+			
+			console.log(_this.collections);
+			
 			if(data.stat != 'fail') {
-				cb(data);
+				cb(_this.menuItemLookup);
 			}
 		});
 	},

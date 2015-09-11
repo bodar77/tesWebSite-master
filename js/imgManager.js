@@ -33,6 +33,14 @@ cb.ImgManager.prototype = {
 				photo = photos[i];
 				cb.flickr.menuItemLookup[photo.id] = photo;
 				cb.flickr.menuItemLookup[id].photos[photo.id] = photo;
+	
+				if(i !== 0) {
+						cb.flickr.menuItemLookup[id].photos[photos[i].id].previous = photos[i-1];
+					}
+					if(photos[i+1]) {
+						cb.flickr.menuItemLookup[id].photos[photos[i].id].next = photos[i+1];
+					}
+					cb.flickr.menuItemLookup[id].photos[photos[i].id].parentId = id;
 				
 				div = document.createElement('div');
 				div.className = 'item';

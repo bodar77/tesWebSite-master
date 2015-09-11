@@ -55,23 +55,24 @@ cb.Flickr.prototype = {
 			len = collections.length
 
 			for (i; i < len; i++) {
+				var j = 0, jlen, sets;
+				
 				_this.menuItemLookup[collections[i].id] = collections[i];
 				_this.menuItemLookup[collections[i].id].photos = {};
 				
-				var j = 0, jlen, sets;
 				sets = collections[i].set;
 				jlen = sets.length;
 				console.log('- ' + collections[i].title);
 				for (j; j < jlen; j++) {
 					_this.menuItemLookup[collections[i].id].photos[sets[j].id] = sets[j];
 					_this.menuItemLookup[collections[i].id].photos[sets[j].id].photos = {};
-					_this.menuItemLookup[sets[j].id] = sets[j];
+					_this.menuItemLookup[sets[j].id] = _this.menuItemLookup[collections[i].id].photos[sets[j].id];
 					_this.photoCollection.push(sets[j].id);
 					console.log('--' + sets[j].title);
 				}
 			}
 			
-			console.log(_this.collections);
+			console.log(_this.menuItemLookup);
 			
 			if(data.stat != 'fail') {
 				cb(_this.menuItemLookup);

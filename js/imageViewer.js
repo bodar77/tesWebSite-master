@@ -68,7 +68,7 @@ cb.ImageViewer.prototype = {
 	
 	addImageView: function(photoId) {
 		
-		var image = $('.image-viewer');
+		var image = $('.image-viewer'), imageHeight;
 		
 		if(image.length > 0) {
 			image.remove();
@@ -86,6 +86,13 @@ cb.ImageViewer.prototype = {
 			picture += '</picture>';
 			picture += '</div>';
 		body.append(picture);
+		
+		image = $('.image-viewer img');
+		
+		this.getMetrix();
+		imageHeight = this.screen.height - $(this.view).height();
+		
+		image.height(imageHeight);
 	},
 	
 	handleTouchStart: function(e) {
@@ -128,18 +135,17 @@ cb.ImageViewer.prototype = {
 	
 	handleImageNavigation: function(id) {
 		//Resolve issue  with navigating through images
-		var left, right, photos, _this = this;
+		var left, right, photo, _this = this;
 		left = $('.button-left');
 		right = $('.button-right');
 		if (left.length > 0) {
-			photos = cb.flickr.menuItemLookup[id];
-			var keys = Object.keys(photos);
-			var loc = keys.indexOf(photos);
+			photo = cb.flickr.menuItemLookup[id];
+
 			left.on("click", function(e) {
-				_this.addImageView(photos[loc-1]);
+				_this.addImageView(photo.previous.id);
 			});
 			right.on("click", function(e) {
-				_this.addImageView(photos[loc+1]);
+				_this.addImageView(photo.next.id);
 			});
 		}
 	},
@@ -154,22 +160,13 @@ cb.ImageViewer.prototype = {
 	},
 	
 	handleImageClicked: function(e) {
-		var photoId,
-			imageHeight,
-			image;
+		var photoId;
 		
 		// get id of image clicked.
 		photoId = e.target.id;
 		console.log(photoId);
 
 		this.addImageView(photoId);
-		
-		image = $('.image-viewer img');
-		
-		this.getMetrix();
-		imageHeight = this.screen.height - $(this.view).height();
-		
-		image.height(imageHeight);
 		
 		this.handleClose();
 		this.handleImageNavigation(photoId);

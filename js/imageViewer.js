@@ -93,6 +93,8 @@ cb.ImageViewer.prototype = {
 		imageHeight = this.screen.height - $(this.view).height();
 		
 		image.height(imageHeight);
+		this.handleClose();
+		this.handleImageNavigation(photoId);
 	},
 	
 	handleTouchStart: function(e) {
@@ -167,9 +169,6 @@ cb.ImageViewer.prototype = {
 		console.log(photoId);
 
 		this.addImageView(photoId);
-		
-		this.handleClose();
-		this.handleImageNavigation(photoId);
 		
 	}
 	

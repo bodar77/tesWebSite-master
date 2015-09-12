@@ -3,6 +3,13 @@
 	padding: 0;
 }
 
+@font-face {
+  font-family: 'Dakota';
+  src: url('../fonts/ufonts.com_dakota_regular.eot') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/ufonts.com_dakota_regular.woff') format('woff'), /* Pretty Modern Browsers */
+       url('../fonts/ufonts.com_dakota_regular.ttf')  format('truetype'); /* Safari, Android, iOS */
+}
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
@@ -132,11 +139,15 @@ article {
 }
 
 .article {
-	padding: 10px;
+	padding: 30px;
 }
 
 h1 {
 	color: white;
+}
+
+.atrticle-title {
+	font-family: 'Dakota';
 }
 
 aside {

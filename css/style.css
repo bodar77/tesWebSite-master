@@ -18,6 +18,8 @@ body {
   overflow-x: hidden;
 }
 
+/* ------------------------ MENU ---------------------------------*/
+
 #menu ul {
   text-align: left;
   display: inline;
@@ -90,182 +92,9 @@ body {
 
 }
 
-#container {
-	position: relative;
-}
-
-#indicator {
-	position: absolute;
-	z-index: 99;
-	top: 0;
-	left: 3px;
-	width: 20px;
-	height: 4px;
-	background-color: #888;
-	border: none;
-	margin: 0 5px 0 5px;
-}
-
-#logo {
-	text-align: left;
-	padding: 10px;
-	background-color: #fff;
-}
-
-#logo img {
-	width: 75%;
-	max-width: 500px;
-}
-
-#pattern {
-	position: absolute;
-	top: 0;
-	right: 0;
-	background: url(../img/pattern.png) no-repeat;
-	width: 300px;
-  	height: 223%;
-}
-
-section {
-	background-color: black;
-	width: 100%;
-}
-
-article {
-	float: left;
-	min-width: 200px;
-	width: 33%;
-	background-color: black;
-}
-
-.article {
-	padding: 30px;
-}
-
-h1 {
-	color: white;
-}
-
-.atrticle-title {
-	font-family: 'Dakota';
-}
-
-aside {
-	float: left;
-	width: 67%;
-	background-color: black;
-	overflow: hidden;
-}
-
-
-.container {
-	overflow: hidden;
-	max-width: 100%;
-
-	position: fixed;
-	bottom: 0px;
-	left: 0px;
-	z-index: 5;
-	background-color: black;
-}
-
-#slider {
-	-webkit-transform: translateX(0px);
-	display: table;
-	zoom: 1;
-	letter-spacing: normal;
-	word-spacing: normal;
-	vertical-align: top;
-	text-rendering: auto;
-}
-
-#slider .item {
-	display:  table-cell;
-	min-width: 150px;
-	height: 150px;
-}
-
-#slider .overlay {
-	display: none;
-}
-
-#slider.disabled .overlay {
-	display: block;
-	width: 100%;
-	background: rgba(0,0,0,0.9);
-	position: absolute;
-	top:0;
-	bottom: 0;
-	left:0;
-	z-index:10;
-}
-
-.nav-trigger {
-		position: absolute;
-		clip: rect(0, 0, 0, 0);
-	}
-	
-.image-close {
-	position: absolute;
-	top: 20px;
-	right: 0;
-}
-
-.image-left {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-}
-
-.image-right {
-	position: absolute;
-	bottom: 0;
-	right: 0;
-}
-
-.button-close {
-	width: 52px;
-	height: 52px;
-	background: url('../img/round_delete.png') no-repeat;
-	border: none;
-}
-
-.button-left {
-	width: 128px;
-	height: 128px;
-	background: url('../img/arrow_left.png') no-repeat;
-	border: none;
-}
-
-.button-right {
-	width: 128px;
-	height: 128px;
-	background: url('../img/arrow_right.png') no-repeat;	
-	border: none;
-}
-
-.image-viewer {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	background: rgba(0,0,0,0.9);
-}
-
 @media screen and (max-width: 620px)
 {
-	aside, article {
-		width: 100%;
-	}
 
-	#pattern {
-		display: none;
-	}
-	
-	#logo img {
-		width: 100%;
-	}
-	
 	#menu > ul {
 		list-style: none;
 		height: 100%;
@@ -299,6 +128,152 @@ aside {
 		font-weight: normal;
 		padding-left: 20px;
 	}
+
+	.nav-trigger:checked + label {
+		left: 10px;
+	}
+	 
+	.nav-trigger:checked ~ div {
+		left: 200px;
+		border-left: solid #8AA2AF 1px;
+	}
+	
+	.nav-trigger:checked ~ div.container  {
+		display: none;
+	}
+
+	label[for="nav-trigger"] {
+		position: absolute;
+		top: 14px;
+    	right: 10px;
+		z-index: 7;
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
+		background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6' style='fill:rgb(138, 162, 175);'/><rect y='24' width='30' height='6' style='fill:rgb(138, 162, 175);'/><rect y='12' width='30' height='6' style='fill:rgb(138, 162, 175);'/></svg>");
+		background-size: contain;
+	}
+
+}
+/* ------------------------  END MENU ---------------------------------*/
+
+
+/* ------------------------ SITE STYLES  ---------------------------------*/
+
+/* ------------------------ LAYOUT ---------------------------------*/
+
+
+#container {
+	position: relative;
+	min-width: 300px;
+}
+
+#indicator {
+	position: absolute;
+	z-index: 99;
+	top: 0;
+	left: 3px;
+	width: 20px;
+	height: 4px;
+	background-color: #888;
+	border: none;
+	margin: 0 5px 0 5px;
+}
+
+#pattern {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: url(../img/pattern.png) no-repeat;
+	width: 300px;
+  	height: 223%;
+}
+
+section {
+	background-color: black;
+	width: 100%;
+	display: table;
+}
+
+article {
+	display: table-cell;
+	width: 33%;
+	vertical-align: top;
+	min-width: 300px;
+}
+
+aside {
+	display: table-cell;
+	background-color: black;
+	overflow: hidden;
+	vertical-align: middle;
+    text-align: right;
+}
+
+h1 {
+	color: white;
+}
+
+.cbp-logo {
+	text-align: left;
+	padding: 10px;
+	color: rgb(138, 162, 175);
+	font-size: 3em;
+	background-color: #fff;
+}
+
+.cbp-article {
+	padding: 30px;
+	text-align: left;
+}
+
+.cbp-article-title {
+	font-size: 2em;	
+	margin-bottom: 40px;
+}
+
+.cbp-article-description {
+	color: white;
+	line-height: 2em;
+}
+
+.cbp-container {
+	overflow: hidden;
+	max-width: 100%;
+
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	z-index: 5;
+	background-color: black;
+}
+
+.cbp-sideimage {
+	width: 100%;
+}
+
+@media screen and (max-width: 768px)
+{
+	#pattern {
+		display: none;
+	}
+}
+
+@media screen and (max-width: 620px)
+{
+	aside, article {
+		display: block;
+		width: 100%;
+	}
+
+	aside {
+		margin-bottom: 75px;
+	}
+
+
+	#logo img {
+		width: 100%;
+	}
 	
 	section {
 		min-width: 100%;
@@ -310,35 +285,170 @@ aside {
 		z-index: 1;
 	}
 	
+	.cbp-logo {
+		font-size: 2em;
+	}
+
+	.cbp-article-title {
+	    font-size: 1.5em;
+	    margin-bottom: 20px;
+	}
+
+
+	
+}
+
+@media screen and (max-width: 458px)
+{
+	.cbp-logo {
+		font-size: 1.3em;
+	}
+
 	label[for="nav-trigger"] {
-		position: absolute;
-		top: 120%;
-		left: 10px;
-		z-index: 7;
-		width: 30px;
-		height: 30px;
-		cursor: pointer;
-		background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' x='0px' y='0px' width='30px' height='30px' viewBox='0 0 30 30' enable-background='new 0 0 30 30' xml:space='preserve'><rect width='30' height='6' style='fill:rgb(138, 162, 175);'/><rect y='24' width='30' height='6' style='fill:rgb(138, 162, 175);'/><rect y='12' width='30' height='6' style='fill:rgb(138, 162, 175);'/></svg>");
-		background-size: contain;
+	    top: 6px;
 	}
-	
-	.nav-trigger:checked + label {
-		left: 215px;
-	}
-	 
-	.nav-trigger:checked ~ section {
-		left: 200px;
-	}
-	
-	.nav-trigger:checked ~ div.container  {
-		display: none;
-	}
-	
+}
+
+/* ------------------------ END LAYOUT ---------------------------------*/
+
+
+
+/* ------------------------ STYLE CLASSES ---------------------------------*/
+
+.dakota {
+	font-family: 'Dakota', Helvetica, Arial, sans-serif;
+}
+
+
+
+/* ------------------------ END STYLE CLASSES ---------------------------------*/
+
+
+/* ------------------------ SLIDER ---------------------------------*/
+
+#slider {
+	-webkit-transform: translateX(0px);
+	display: table;
+	zoom: 1;
+	letter-spacing: normal;
+	word-spacing: normal;
+	vertical-align: top;
+	text-rendering: auto;
+}
+
+#slider .item {
+	display:  table-cell;
+	min-width: 150px;
+	height: 150px;
+}
+
+#slider .overlay {
+	display: none;
+}
+
+#slider.disabled .overlay {
+	display: block;
+	width: 100%;
+	background: rgba(0,0,0,0.9);
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left:0;
+	z-index:10;
+}
+
+@media screen and (max-width: 620px)
+{
 	#slider .item {
 		min-width: 75px;
 		height: 75px;
 	}
-	
+
 }
-Status API Training Shop Blog About Pricing
-© 2015 GitHub, Inc. Terms Privacy Security Contact Help
+
+
+/* ------------------------ END SLIDER ---------------------------------*/
+
+
+/* ------------------------ IMAGE VIEWER ---------------------------------*/
+
+.nav-trigger {
+		position: absolute;
+		clip: rect(0, 0, 0, 0);
+	}
+	
+.image-close {
+	position: absolute;
+	top: 65px;
+	right: 0;
+}
+
+.image-left {
+	position: absolute;
+	bottom: 140px;
+	left: 0;
+}
+
+.image-right {
+	position: absolute;
+	bottom: 140px;
+	right: 0;
+}
+
+.button-close {
+	width: 52px;
+	height: 52px;
+	background: url('../img/round_delete.png') no-repeat;
+	border: none;
+}
+
+.button-left {
+	width: 128px;
+	height: 128px;
+	background: url('../img/arrow_left.png') no-repeat;
+	border: none;
+}
+
+.button-right {
+	width: 128px;
+	height: 128px;
+	background: url('../img/arrow_right.png') no-repeat;	
+	border: none;
+}
+
+.image-viewer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.9);
+	z-index: 3;
+}
+
+@media screen and (max-width: 620px)
+{
+	.image-viewer img {
+		width: 100%;
+	}
+
+	.image-left {	
+		bottom: 50px;
+	}
+
+	.image-right {
+		bottom: 50px;
+	}
+
+	.button-left {
+		background-size: 100px;
+	}
+
+	.button-right {
+		background-size: 100px;
+	}
+
+}
+
+/* ------------------------ IMAGE VIEWER ---------------------------------*/
+

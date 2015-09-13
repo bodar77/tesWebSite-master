@@ -6,7 +6,7 @@
 				var _this = this;
 				
 				this.view = document.getElementById('slider');
-				this.container = $('.container');
+				this.container = $('.cbp-container');
 				this.overlay = document.getElementById('overlay');
 
 				this.screenWidth;
@@ -60,7 +60,7 @@
 				addHandlers: function() {
 					var $view = $(this.view)
 				
-					if (typeof window.ontouchstart !== 'undefined') {
+					if (window.ontouchstart) {
 						$view.on('touchstart', $.proxy(this.tap, this));
 						$view.on('touchmove', $.proxy(this.drag, this));
 						$view.on('touchend', $.proxy(this.release, this));
@@ -73,7 +73,7 @@
 				removeHandlers: function() {
 					var $view = $(this.view)
 				
-					if (typeof window.ontouchstart !== 'undefined') {
+					if (window.ontouchstart) {
 						$view.off('touchstart', $.proxy(this.tap, this));
 						$view.off('touchmove', $.proxy(this.drag, this));
 						$view.off('touchend', $.proxy(this.release, this));

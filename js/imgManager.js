@@ -48,7 +48,7 @@ cb.ImgManager.prototype = {
 					div.id = "item1";
 					picture = '<picture>';
 					picture += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_z.jpg" media="(min-width: 620px)">';
-					picture += '<img id="' + photo.id  + '" srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_n.jpg" alt="">';
+					picture += '<img id="' + photo.id  + '" class="cbp-sideimage" srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_n.jpg" alt="">';
 					picture += '</picture>';
 				}
 							

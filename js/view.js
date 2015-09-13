@@ -1,8 +1,8 @@
 var cb = cb || {};
 
 cb.View = function() {
-	this.title = document.getElementsByClassName('article-title')[0],
-	this.description = document.getElementsByClassName('article-description')[0];
+	this.title = document.getElementsByClassName('cbp-article-title')[0],
+	this.description = document.getElementsByClassName('cbp-article-description')[0];
 	this.init();
 }
 

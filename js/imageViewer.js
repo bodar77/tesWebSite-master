@@ -15,7 +15,7 @@ cb.ImageViewer = function(){
 	this.documentCache = $('body');
 	
 	// Need full screen measurements
-	this.screen = { width: 0, height:0, mousex: 0, mousey: 0, distancex: 0, distancey: 0 };
+	this.screen = { width: 0, height:0, mousex: 0, mousey: 0, distancex: 0, distancey: 0, isLandscape: true};
 	
 	this.init();
 	
@@ -35,6 +35,7 @@ cb.ImageViewer.prototype = {
 		var doc = this.documentCache;
 		this.screen.width = doc.width();
 		this.screen.height = $(window).height();
+		this.screen.isLandscape = (this.screen.width > this.screen.height);
 	},
 	
 	addHandlers: function() {
@@ -90,9 +91,13 @@ cb.ImageViewer.prototype = {
 		image = $('.image-viewer img');
 		
 		this.getMetrix();
+
 		imageHeight = this.screen.height - $(this.view).height();
-		
-		image.height(imageHeight);
+
+		if(this.screen.isLandscape) {
+			image.height(imageHeight);
+		}
+
 		this.handleClose();
 		this.handleImageNavigation(photoId);
 	},

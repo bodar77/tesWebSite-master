@@ -47,25 +47,26 @@ cb.ImgManager.prototype = {
 				if (i === 0) {
 					div.id = "item1";
 					picture = '<picture>';
+					picture += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg" media="(min-width: 1300px)">';
 					picture += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_z.jpg" media="(min-width: 620px)">';
-					picture += '<img id="' + photo.id  + '" class="cbp-sideimage" srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_n.jpg" alt="">';
+					picture += '<img id="' + photo.id  + '" class="cbp-sideimage" src="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_n.jpg" alt="">';
 					picture += '</picture>';
 				}
 							
 				//img = '<img src="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg" />';
 				img = '<picture>';
-				img += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg" media="(min-width: 620px)">';
-				img += '<img id="' + photo.id  + '" srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_s.jpg" alt="">';
+				img += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg" media="(min-width: 700px)">';
+				img += '<img id="' + photo.id  + '" src="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_s.jpg" alt="">';
 				img += '</picture>';
 				div.innerHTML = img;
 				frag.appendChild(div);
 				//containers.eq(i).css('background', 'url(https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_q.jpg)');
 			}
-			console.log(cb.menu.menuItemLookup);
+
 			mainImage.innerHTML = picture;
 			slider.appendChild(frag);
 			var s = new cb.Slider();
-			
+
 			if(cback) { cback(); }
 			
 		});	

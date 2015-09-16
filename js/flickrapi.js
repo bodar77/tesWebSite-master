@@ -45,7 +45,6 @@ cb.Flickr.prototype = {
 		$.getJSON('https://api.flickr.com/services/rest/?method=flickr.collections.getTree&api_key=' + this.appid + '&user_id=' + this.userid + '&format=json&nojsoncallback=1',
 		function(data){
 			_this.tree = data;
-			console.log(_this.tree);
 
 			//Manipulate the data, loop through it building a new Flikr object and id array.
 			//Create a document fragment to insert into the dom
@@ -62,7 +61,7 @@ cb.Flickr.prototype = {
 				
 				sets = collections[i].set;
 				jlen = sets.length;
-				console.log('- ' + collections[i].title);
+
 				for (j; j < jlen; j++) {
 					_this.menuItemLookup[collections[i].id].photos[sets[j].id] = sets[j];
 					_this.menuItemLookup[collections[i].id].photos[sets[j].id].photos = {};
@@ -72,7 +71,6 @@ cb.Flickr.prototype = {
 				}
 			}
 			
-			console.log(_this.menuItemLookup);
 			
 			if(data.stat != 'fail') {
 				cb(_this.menuItemLookup);

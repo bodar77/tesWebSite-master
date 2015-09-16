@@ -59,29 +59,34 @@
 				},
 				addHandlers: function() {
 					var $view = $(this.view)
-				
-					if (window.ontouchstart) {
-						$view.on('touchstart', $.proxy(this.tap, this));
-						$view.on('touchmove', $.proxy(this.drag, this));
-						$view.on('touchend', $.proxy(this.release, this));
+					var supportsTouch = 'ontouchstart' in document;
+					if (supportsTouch) {
+						this.view.addEventListener("touchstart", $.proxy(this.tap, this), false);
+						this.view.addEventListener("touchmove", $.proxy(this.drag, this), false);
+						this.view.addEventListener("touchend", $.proxy(this.release, this), false);
+					}
+					else {
+						$view.on('mousedown', $.proxy(this.tap, this));
+						$view.on('mousemove', $.proxy(this.drag, this));
+						$view.on('mouseup', $.proxy(this.release, this));
 					}
 
-					$view.on('mousedown', $.proxy(this.tap, this));
-					$view.on('mousemove', $.proxy(this.drag, this));
-					$view.on('mouseup', $.proxy(this.release, this));
+					
 				},
 				removeHandlers: function() {
 					var $view = $(this.view)
 				
-					if (window.ontouchstart) {
-						$view.off('touchstart', $.proxy(this.tap, this));
-						$view.off('touchmove', $.proxy(this.drag, this));
-						$view.off('touchend', $.proxy(this.release, this));
+					var supportsTouch = 'ontouchstart' in document;
+					if (supportsTouch) {
+						this.view.removeventListener("touchstart", $.proxy(this.tap, this), false);
+						this.view.removeventListener("touchmove", $.proxy(this.drag, this), false);
+						this.view.removeventListener("touchend", $.proxy(this.release, this), false);
 					}
-
-					$view.off('mousedown', $.proxy(this.tap, this));
-					$view.off('mousemove', $.proxy(this.drag, this));
-					$view.off('mouseup', $.proxy(this.release, this));
+					else {
+						$view.off('mousedown', $.proxy(this.tap, this));
+						$view.off('mousemove', $.proxy(this.drag, this));
+						$view.off('mouseup', $.proxy(this.release, this));
+					}
 				},
 				xpos: function(e) {
 					// touch event
@@ -125,7 +130,7 @@
 					if (this.amplitude) {
 						elapsed = Date.now() - this.timestamp;
 						delta = -this.amplitude * Math.exp(-elapsed / this.timeConstant);
-						//console.log("autoscroll delta = " + delta)
+
 						if (delta > 0.5 || delta < -0.5) {
 							this.scroll(this.target + delta);
 							requestAnimationFrame($.proxy(this.autoScroll, this));

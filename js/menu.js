@@ -1,11 +1,11 @@
 		var cb = cb || {};
 
-		cb.Menu = function(){
+		cb.Menu = function() {
 			this.collections = {};
 			this.menuItemLookup = {};
 			this.init();
 			this.addHandlers();
-		}
+		};
 		
 		cb.Menu.prototype = {
 			
@@ -33,7 +33,7 @@
 							len = sets.length;
 							
 							li1 = document.createElement('li');
-							tn = document.createTextNode(item.title)
+							tn = document.createTextNode(item.title);
 							ul2 = document.createElement('ul');
 							li1.appendChild(tn);
 							li1.appendChild(ul2);
@@ -53,7 +53,7 @@
 					frag.appendChild(ul1);
 					menu = document.getElementById('menu');
 					menu.appendChild(frag);
-					//console.log(_this.menuItemLookup)
+
 					// Add Handlers
 					_this.addHandlers();
 					
@@ -68,11 +68,14 @@
 			addHandlers: function() {
 				var _this = this;
 				$('ul').on('click', function(e) {
+					e.preventDefault();
+					e.stopPropagation()
 					var target = $(e.target);
 					var details = cb.flickr.menuItemLookup[target.attr('data-id')];
-					if (e.target && target.attr('data-id').length > 0) {
-						console.log("clicked: " + target.attr('data-id'));
-						cb.imgmanager.loadCategoryImages(target.attr('data-id'));
+					if (e.target && target.length > 0 && target.attr('data-id') && target.attr('data-id').length > 0) {
+						cb.imgmanager.loadCategoryImages(target.attr('data-id'), function() {
+							picturefill();
+						});
 						cb.view.updateTitleDescription(details.title, details.description);
 					}
 				});	
@@ -89,4 +92,4 @@
 				return Math.floor(Math.random() * (max - min)) + min;
 			}
 	
-		}
+		};

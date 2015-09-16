@@ -8,3 +8,7 @@ window.onload = function () {
 	cb.view = new cb.View();
 	
 };
+
+window.onerror = function (errorMsg, url, lineNumber) {
+    //alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+}

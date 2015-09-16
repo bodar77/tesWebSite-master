@@ -5,7 +5,7 @@ cb.ImageViewer = function(){
 	var _this = this;
 	// Add properties for page elements
 	this.view = document.getElementById('slider');
-	
+	this.pressed = false;
 	this.isDragDelta = 50;
 	
 	this.clickDurationDelta = 1000;
@@ -37,22 +37,42 @@ cb.ImageViewer.prototype = {
 		this.screen.height = $(window).height();
 		this.screen.isLandscape = (this.screen.width > this.screen.height);
 	},
+
+	xpos: function(e) {
+		// touch event
+		if (e.targetTouches && (e.targetTouches.length >= 1)) {
+			return e.targetTouches[0].clientX;
+		 }
+
+		 // mouse event
+		 return e.clientX;
+	 },
+
+	 ypos: function(e) {
+		// touch event
+		if (e.targetTouches && (e.targetTouches.length >= 1)) {
+			return e.targetTouches[0].clientY;
+		 }
+
+		 // mouse event
+		 return e.clientY;
+	 },
 	
 	addHandlers: function() {
 	
 		// Thumbnail based touchstart, touchmove - prevents drag move opening the thumbnail. touchend.
 		var $view = $(this.view);
 		
-			if (typeof window.ontouchstart !== 'undefined') {
-			$view.on('touchstart', $.proxy(this.handleTouchStart, this));
-			$view.on('touchmove', $.proxy(this.handleTouchMove, this));
-			$view.on('touchend', $.proxy(this.handleTouchEnd, this));
+		var supportsTouch = 'ontouchstart' in document;
+		if (supportsTouch) {
+			this.view.addEventListener("touchstart", $.proxy(this.handleTouchStart, this), false);
+			this.view.addEventListener("touchmove", $.proxy(this.handleTouchMove, this), false);
+			this.view.addEventListener("touchend", $.proxy(this.handleTouchEnd, this), false);
 		}
 
 		$view.on('mousedown', $.proxy(this.handleTouchStart, this));
 		$view.on('mousemove', $.proxy(this.handleTouchMove, this));
 		$view.on('mouseup', $.proxy(this.handleTouchEnd, this));
-	
 	},
 	
 	removeHandlers: function() {
@@ -68,7 +88,8 @@ cb.ImageViewer.prototype = {
 	},
 	
 	addImageView: function(photoId) {
-		
+		$(document).scrollTop(0,0);
+
 		var image = $('.image-viewer'), imageHeight;
 		
 		if(image.length > 0) {
@@ -77,12 +98,13 @@ cb.ImageViewer.prototype = {
 		
 		var photo = cb.flickr.menuItemLookup[photoId];
 		var body = $('body');
+
 		var picture = '<div class="image-viewer" >'; 
 			picture += '<div class="image-close"><button class="button-close"></button></div>';
 			picture += '<div class="image-left"><button class="button-left"></button></div>';
 			picture += '<div class="image-right"><button class="button-right"></button></div>';
 			picture += '<picture>';
-			picture += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg" media="(min-width: 620px)">';
+			picture += '<source srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg" media="(min-width: 670px)">';
 			picture += '<img id="' + photo.id  + '" srcset="https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg" alt="">';
 			picture += '</picture>';
 			picture += '</div>';
@@ -98,6 +120,9 @@ cb.ImageViewer.prototype = {
 			image.height(imageHeight);
 		}
 
+		this.documentCache.height(imageHeight);
+		this.documentCache.css('overflow', 'hidden');
+
 		this.handleClose();
 		this.handleImageNavigation(photoId);
 	},
@@ -105,39 +130,47 @@ cb.ImageViewer.prototype = {
 	handleTouchStart: function(e) {
 		//get mouse clicked time
 		this.clickStartTime = Date.now();
-		
+		this.pressed = true;
 		//get mouse position
-		this.screen.mousex = e.clientX;
-		this.screen.mousey = e.clientY;
+
+		this.screen.mousex = this.xpos(e);
+		this.screen.mousey = this.ypos(e);;
 	},
 	
 	handleTouchMove: function(e) {
-		//update mouse position
+		//calculate distance moved
+		if(this.pressed) {
+			this.screen.distancex = this.screen.mousex - this.xpos(e);
+			this.screen.distancey = this.screen.mousey - this.ypos(e);
+		}
 	},
 	
 	handleTouchEnd: function(e) {
 		var longClick, drag;
-	
+		this.pressed = false;
 		//get mouse clicked tIme, if longer than the delta we exit;
 		this.clickEndTime = Date.now();
 		longClick = (this.clickDurationDelta < (this.clickEndTime - this.clickStartTime));
 		
 		if(longClick) { return; }
-		
-		//calculate distance moved
-		this.screen.distancex = this.screen.mousex - e.clientX;
-		this.screen.distancey = this.screen.mousey - e.clientY;
-		
+
 		//get how much the click event moved to work out if it was a drag or a click.
 		drag = (	this.screen.distancex > this.isDragDelta ||
 					this.screen.distancey > this.isDragDelta ||
 					this.screen.distancex < -this.isDragDelta || 
 					this.screen.distancey < -this.isDragDelta 
 				);
+
+		this.screen.distancex = 0;
+		this.screen.distancey =0;
+
+		if (drag) { 
+			return; 
+		}
 		
-		if (drag) { return; }
 		
 		this.handleImageClicked(e);
+
 	},
 	
 	handleImageNavigation: function(id) {
@@ -159,9 +192,11 @@ cb.ImageViewer.prototype = {
 	
 	handleClose: function() {
 		var closeButton = $('.image-close');
+		var _this = this;
 		if (closeButton.length > 0) {
 			closeButton.on("click", function(e) {
 				$('.image-viewer').remove();
+				_this.documentCache.removeAttr('style');
 			});
 		}
 	},
@@ -171,7 +206,6 @@ cb.ImageViewer.prototype = {
 		
 		// get id of image clicked.
 		photoId = e.target.id;
-		console.log(photoId);
 
 		this.addImageView(photoId);
 		

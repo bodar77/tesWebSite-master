@@ -74,7 +74,6 @@
 					v = 1000 * delta / (1 + elapsed);
 					this.velocity = 0.5 * v + 0.2 * this.velocity;
 					
-					console.log("track now = " + now + " elapsed = " + elapsed + " delta= " + delta + " v = " + v + " velocity = " + this.velocity);
 				},
 
 				autoScroll: function() {
@@ -83,8 +82,7 @@
 					if (this.amplitude) {
 						elapsed = Date.now() - this.timestamp;
 						delta = -this.amplitude * Math.exp(-elapsed / this.timeConstant);
-						console.log("autoscroll delta = " + delta)
-						if (delta > 0.5 || delta < -0.5) {
+							if (delta > 0.5 || delta < -0.5) {
 							this.scroll(this.target + delta);
 							requestAnimationFrame(this.autoScroll.bind(this));
 						} else {
@@ -136,7 +134,6 @@
 					this.timestamp = Date.now();
 					requestAnimationFrame(this.autoScroll.bind(this));
 					
-					console.log("release target = " + this.target + " amplitude = " + this.amplitude);
 					
 					e.preventDefault();
 					e.stopPropagation();

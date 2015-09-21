@@ -2,6 +2,7 @@ var cb = cb || {};
 
 window.onload = function () {
 	
+	cb.route = new cb.Route(); 
 	cb.flickr = new cb.Flickr();
 	cb.imageviewer = new cb.ImageViewer();
 	cb.imgmanager = new cb.ImgManager();

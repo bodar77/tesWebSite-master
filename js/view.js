@@ -19,8 +19,17 @@ cb.View.prototype = {
 	loadImages:function() {	
 		var _this = this;
 		$(document).on('menuAvailiable', function(e) {
-			cb.imgmanager.loadCategoryImages(e.menuData.id, function() {
-				_this.updateTitleDescription(e.menuData.title, e.menuData.description);
+			var categoryId;
+			if(cb.route.hash){
+				categoryId = cb.flickr.toplevellookup[cb.route.category.toLowerCase()];
+			}
+			
+			if(!categoryId) {
+				categoryId = e.menuData.id;
+			}
+
+			cb.imgmanager.loadCategoryImages(categoryId, function() {
+				_this.updateTitleDescription(cb.flickr.menuItemLookup[categoryId].title, cb.flickr.menuItemLookup[categoryId].description);
 				picturefill();
 			});
 		});

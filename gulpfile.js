@@ -12,9 +12,9 @@ gulp.task('minify', function () {
 
 gulp.task('js', function () {
    return gulp.src(['js/*.js','!js/slider.js', '!js/modernizr.custom.18495.js', '!js/pf2.js'])
-      .pipe(jshint())
-      .pipe(jshint.reporter('default'))
-      .pipe(uglify())
+      //.pipe(jshint())
+      //.pipe(jshint.reporter('default'))
+      //.pipe(uglify())
       .pipe(concat('app.js'))
       .pipe(gulp.dest('build'));
 });

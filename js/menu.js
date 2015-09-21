@@ -18,7 +18,7 @@
 				cb.flickr.getCollectionTree(function(data) {
 					//Create a document fragment to insert into the dom
 					console.log(data);
-					var frag, ul1, event, menu, key;
+					var frag, ul1, event, menu, key, firstSet;
 					
 					frag = document.createDocumentFragment();
 					ul1 = document.createElement('ul');
@@ -57,9 +57,9 @@
 					// Add Handlers
 					_this.addHandlers();
 					
-					randomSet = data[cb.flickr.photoCollection[_this.getRandomInt(0, len)]];
+					firstSet = data[cb.flickr.photoCollection[0]];
 					event = $.Event( "menuAvailiable" );
-					event.menuData = randomSet;
+					event.menuData = firstSet;
 					$(document).trigger(event);
 					
 				});
@@ -71,7 +71,7 @@
 					e.preventDefault();
 					e.stopPropagation()
 					var target = $(e.target);
-					var details = cb.flickr.menuItemLookup[target.attr('data-id')];
+					var details = cb.flickr.menuItemLookup[target.attr('data-id')]; 
 					if (e.target && target.length > 0 && target.attr('data-id') && target.attr('data-id').length > 0) {
 						cb.imgmanager.loadCategoryImages(target.attr('data-id'), function() {
 							picturefill();

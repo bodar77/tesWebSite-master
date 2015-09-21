@@ -8,6 +8,7 @@ cb.Flickr = function(){
 	this.tree;
 	this.photoCollection = [];
 	this.menuItemLookup = {};
+	this.toplevellookup = {};
 	//properties
 	//an array of arrays. each requested photoset is stored as an array by key in the photos array.
 	this.photos;
@@ -67,10 +68,9 @@ cb.Flickr.prototype = {
 					_this.menuItemLookup[collections[i].id].photos[sets[j].id].photos = {};
 					_this.menuItemLookup[sets[j].id] = _this.menuItemLookup[collections[i].id].photos[sets[j].id];
 					_this.photoCollection.push(sets[j].id);
-					console.log('--' + sets[j].title);
+					_this.toplevellookup[sets[j].title.toLowerCase()] = sets[j].id;
 				}
 			}
-			
 			
 			if(data.stat != 'fail') {
 				cb(_this.menuItemLookup);

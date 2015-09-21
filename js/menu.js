@@ -5,7 +5,7 @@
 			this.menuItemLookup = {};
 			this.init();
 			this.addHandlers();
-		};
+		};  
 		
 		cb.Menu.prototype = {
 			

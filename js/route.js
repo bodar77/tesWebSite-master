@@ -5,10 +5,15 @@ cb.Route = function () {
 	this.category;
 	this.photoId;
 	this.init();
+	this.addHandlers();
 };
 
 cb.Route.prototype = {
 	init: function() {
+		this.updateHashObject();
+	},
+
+	updateHashObject: function() {
 		var hashSplit;
 		console.log(location.hash.substring(1));
 		this.hash = location.hash.substring(1);
@@ -17,5 +22,15 @@ cb.Route.prototype = {
 			this.category = hashSplit[0];
 			this.photoId = hashSplit[1];
 		}
+	},
+
+	addHandlers: function() {
+		$(window).on("hashchange", $.proxy(this.handleHashChange, this));
+	},
+
+	handleHashChange: function() {
+		this.updateHashObject();
+		var event = $.Event( "hashUpdated" );
+		$(document).trigger(event);
 	}
 };

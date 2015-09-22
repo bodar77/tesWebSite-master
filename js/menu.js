@@ -4,7 +4,6 @@
 			this.collections = {};
 			this.menuItemLookup = {};
 			this.init();
-			this.addHandlers();
 		};  
 		
 		cb.Menu.prototype = {
@@ -40,11 +39,14 @@
 							ul1.appendChild(li1);
 							
 							for (i; i < len; i++) {
-								var li2, tn2;
+								var li2, a1, tn2;
 								li2 = document.createElement('li');
-								li2.setAttribute('data-id', sets[i].id);			
+								li2.setAttribute('data-id', sets[i].id);	
+								a1 = document.createElement('a');	
+								a1.setAttribute('href', '#' + sets[i].title.toLowerCase());	
 								tn2 = document.createTextNode(sets[i].title);
-								li2.appendChild(tn2);
+								a1.appendChild(tn2);
+								li2.appendChild(a1);
 								ul2.appendChild(li2);
 							}
 						}
@@ -53,9 +55,6 @@
 					frag.appendChild(ul1);
 					menu = document.getElementById('menu');
 					menu.appendChild(frag);
-
-					// Add Handlers
-					_this.addHandlers();
 					
 					firstSet = data[cb.flickr.photoCollection[0]];
 					event = $.Event( "menuAvailiable" );
@@ -65,28 +64,6 @@
 				});
 			},
 			
-			addHandlers: function() {
-				var _this = this;
-				$('ul').on('click', function(e) {
-					e.preventDefault();
-					e.stopPropagation()
-					var target = $(e.target);
-					var details = cb.flickr.menuItemLookup[target.attr('data-id')]; 
-					if (e.target && target.length > 0 && target.attr('data-id') && target.attr('data-id').length > 0) {
-						cb.imgmanager.loadCategoryImages(target.attr('data-id'), function() {
-							picturefill();
-						});
-						cb.view.updateTitleDescription(details.title, details.description);
-					}
-				});	
-				
-			},
-			
-			removeHandlers: function() {
-				
-				$('ul').off('click');
-				
-			},
 			
 			getRandomInt: function(min, max) {
 				return Math.floor(Math.random() * (max - min)) + min;

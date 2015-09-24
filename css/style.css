@@ -27,6 +27,7 @@ body {
   padding: 15px 4px 17px 0;
   list-style: none;
 }
+
 #menu ul li {
   font: bold 12px/18px sans-serif;
   display: inline-block;
@@ -68,6 +69,7 @@ body {
 #menu ul li ul li a { 
 	text-decoration: none;
 	color: #fff;
+	display: block;
 }
 
 
@@ -100,8 +102,7 @@ body {
 		list-style: none;
 		height: 100%;
 		position: fixed;
-		top: 83px;
-		bottom: 0;
+		top: 0;
 		left: 0;
 		z-index: 1;
 		overflow-y: hidden;
@@ -110,33 +111,43 @@ body {
 	
 	#menu ul li {
 		display: block;
-		padding: 3px 0px 6px 10px;
+		padding: 0;
 		background-color: rgb(0, 0, 0);
 		font-weight: bold;
 		color: white;
+		visibility: hidden;
 	}
 	
 	#menu ul li ul {
 		position: static;
 		display: block;
 		opacity: 1;
-		visibility: visible;
-		width: 184px;
+		visibility: hidden;
+		width: 100%;
 	}
 	
 	#menu ul li ul li { 
 		background-color: rgb(0, 0, 0);
 		font-weight: normal;
-		padding-left: 20px;
+		padding-left: 15px;
+		visibility: visible;
+	}
+
+	#menu ul li ul li a { 
+		width: 1005;
+		padding: 10px;
 	}
 
 	.nav-trigger:checked + label {
-		left: 10px;
+		left:  68%;
 	}
 	 
 	.nav-trigger:checked ~ div {
-		left: 200px;
+		left: 80%;
 		border-left: solid #8AA2AF 1px;
+		overflow-x: hidden;
+		width: 20%;
+		min-width: 20% !important;
 	}
 	
 	.nav-trigger:checked ~ div.cbp-container  {
@@ -146,7 +157,7 @@ body {
 	label[for="nav-trigger"] {
 		position: absolute;
 		top: 14px;
-    	right: 10px;
+    	left: 10px;
 		z-index: 7;
 		width: 30px;
 		height: 30px;
@@ -157,12 +168,6 @@ body {
 
 }
 
-@media screen and (max-width: 490px)
-{
-	#menu > ul {
-		top: 220px;
-	}
-}
 
 /* ------------------------  END MENU ---------------------------------*/
 
@@ -176,6 +181,7 @@ body {
 	position: relative;
 	min-width: 300px;
 	margin-bottom: 150px;
+	overflow: hidden;
 }
 
 #indicator {
@@ -262,6 +268,7 @@ h1 {
 .cbp-article-description {
 	color: white;
 	line-height: 2em;
+	margin-bottom: 15px;
 }
 
 .cbp-container {
@@ -309,10 +316,26 @@ h1 {
 		bottom: 100%;
 		left: 0;
 		z-index: 1;
+		display: inline-block;
 	}
-	
+
+	header {
+		position: relative;
+	}
+
+	#menu {
+		position: relative;
+		z-index: 1;
+	}
+
+	.cbp-logo {
+		position: relative;
+		z-index: 2;
+	}
+
 	.cbp-logoText {
 		font-size: 2em;
+		padding-left: 40px;
 	}
 
 	.cbp-article-title {
@@ -320,7 +343,9 @@ h1 {
 	    margin-bottom: 20px;
 	}
 
-
+	.cbp-contact {
+		padding-top: 15px;
+	}
 	
 }
 
@@ -330,7 +355,7 @@ h1 {
 		display: block;
 	    width: 100%;
 	    padding: 20px 0px;
-	    font-size: 2.8em;
+	    font-size: 2.3em;
 	    min-width: 356px;
 	}
 
@@ -338,7 +363,7 @@ h1 {
 		display: block;
 	    width: 100%;
 	    padding: 0 0 20px 0;
-	    font-size: 1.17em;
+	    font-size: 1em;
 	    min-width: 356px;
 	}
 }
@@ -347,6 +372,7 @@ h1 {
 {
 	.cbp-logoText {
 		font-size: 1.3em;
+		padding-left: 40px;
 	}
 
 	label[for="nav-trigger"] {

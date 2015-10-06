@@ -70,13 +70,12 @@
 			
 			addHandlers: function() {
 				$('.topLevel').on('click', function(e) {
-					var li = $(this);
-					if ( li.hasClass('touched')) {
+					$('.topLevel').removeClass('touched');
+					var li = $(this).addClass('touched');
+					var hide = window.setTimeout(function() {
 						li.removeClass('touched');
-					}
-					else {
-						li.addClass('touched');
-					}
+						window.clearTimeout(hide);
+					}, 3000);
 				});
 			}
 	

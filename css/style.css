@@ -82,14 +82,19 @@ body {
 		text-align: left;
 	}
 
-	#menu ul li ul li:hover { background: #666; }
-	#menu ul li:hover ul {
+	.no-touchevents #menu ul li ul li:hover,
+	.touchevents #menu ul li.touched ul li { 
+		background: #666; 
+	}
+
+	.no-touchevents #menu ul li:hover ul,
+	.touchevents #menu ul li.touched ul {
 	  display: block;
 	  opacity: 1;
 	  visibility: visible;
 	}
-	#menu ul li:hover,
-	#menu ul li.touched {
+	.no-touchevents #menu ul li:hover,
+	.touchevents #menu ul li.touched {
 	  background: #555;
 	  color: #fff;
 	}

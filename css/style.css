@@ -88,7 +88,8 @@ body {
 	  opacity: 1;
 	  visibility: visible;
 	}
-	#menu ul li:hover {
+	#menu ul li:hover,
+	#menu ul li.touched {
 	  background: #555;
 	  color: #fff;
 	}

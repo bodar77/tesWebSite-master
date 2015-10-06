@@ -36,6 +36,7 @@
 							ul2 = document.createElement('ul');
 							li1.appendChild(tn);
 							li1.appendChild(ul2);
+							li1.className = 'topLevel';
 							ul1.appendChild(li1);
 							
 							for (i; i < len; i++) {
@@ -56,6 +57,8 @@
 					menu = document.getElementById('menu');
 					menu.appendChild(frag);
 					
+					_this.addHandlers();
+
 					firstSet = data[cb.flickr.photoCollection[0]];
 					event = $.Event( "menuAvailiable" );
 					event.menuData = firstSet;
@@ -65,8 +68,16 @@
 			},
 			
 			
-			getRandomInt: function(min, max) {
-				return Math.floor(Math.random() * (max - min)) + min;
+			addHandlers: function() {
+				$('.topLevel').on('click', function(e) {
+					var li = $(this);
+					if ( li.hasClass('touched')) {
+						li.removeClass('touched');
+					}
+					else {
+						li.addClass('touched');
+					}
+				});
 			}
 	
 		};
